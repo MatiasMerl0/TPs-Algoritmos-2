@@ -1,0 +1,48 @@
+Matias Merlo Gonzalez
+Padron 104093
+Se entrega un TDA lista implementado con las primitivas del TDA cola.
+Se entregan tambien 2 archivos de minipruebas cuyas lineas de compilacion/ejecucion son las siguientes:
+
+La linea de compilacion para las minipruebas lista es:
+gcc *.c -o lista -g -std=c99 -Wall -Wconversion -Wtype-limits -pedantic -Werror -O0
+
+Para correr el codigo de minipruebas lista con valgrind la linea de ejecucion es:
+valgrind --leak-check=full --track-origins=yes --show-reachable=yes ./lista
+(Al correr con valgrind, tarda un poco pues se hacen muchos allocs.)
+LAS LINEAS DE EJECUCION DE LAS MINIPRUEBAS LISTA SE DEBEN EJECUTAR EN EL DIRECTORIO DENTRO DE LA CARPETA "LISTA NUEVA".
+
+
+La linea de compilacion para las minipruebas hash (que utilizan la lista) es:
+gcc *.c -o hash -g -std=c99 -Wall -Wconversion -Wtype-limits -pedantic -Werror -O0
+
+Para correr el codigo de minipruebas hash con valgrind la linea de ejecucion es:
+valgrind --leak-check=full --track-origins=yes --show-reachable=yes ./hash
+LAS LINEAS DE EJECUCION/COMPILACION DE LAS MINIPRUEBAS HASH SE DEBEN EJECUTAR EN EL DIRECTORIO DENTRO DE LA CARPETA "HASH CON LISTA NUEVA".
+
+Aclaraciones:
+-El primer elemento de la fila es el primer elemento de la cola.
+
+-Para buscar una posicion en la cola, se usa la funcion auxiliar obtener_posicion. Esta funcion recibe la posicion N, luego desencola y encola los primero N elementos para que la posicion buscada quede adelante de la cola. Esto sirve para que luego, dentro del ambito donde esta siendo llamada obtener_posicion, se opere de la forma deseada el elemento, ya sea borrandolo de la cola o dandoselo al usuario. Obtener_posicion deja desordenada la cola, por lo que se tiene que volver a llamar, con una variable posiciones_a_corregir que lleva la cantidad de posiciones que se tienen que volver a desencolar y encolar para que la lista quede correctamente ordenada. Se explica con un diagrama a continuacion:
+
+Se tiene la cola con estos elementos, donde A es la primer posicion.
+E D C B A
+
+Se quiere borrar el elemento en la posicion 2 (la C), por lo que se desencolan y encolan los primero dos elementos.
+B A E D C
+
+Se borra (desencola sin volver a encolar) el primer elemento.
+B A E D
+
+Y luego se corrije, con un int posiciones_a_corregir que en este caso es 2. Entonces de desencolan y encolan dos elementos.
+E D B A
+
+*Notar que si no se hubiera querido borrar el elemento C, la variable int posiciones_a_corregir hubiera sido 3, eso se maneja internamente en cada funcion.*
+
+
+-El iterador de la lista es una estructura que apunta a una copia de la cola y tiene un tope que es igual a la cantidad de elementos en la lista (al momento de crear el iterador). En cada iteracion de desencola y resta una unidad al tope. Cuando tope llega a 0, no se permite iterar mas, pues no quedan elementos en la cola.
+
+-Se elige iterar sobre una copia de la cola ya que al desencolar elementos la cola (osea la lista) cambia. Para evitar que se desordene, se itera sobre una copia.
+
+-Como la estructura cola no me permite tomar el ultimo elemento de la cola, las funciones lista_ultimo y lista_borrar se volvieron casos particulares de las funciones lista_elemento_en_posicion y lista_borrar_de_posicion respectivamente.
+
+-En cuanto a las minipruebas corridas, se usaron tanto las minipruebas del TDA lista entregado durante el cuatrimestre, y las minipruebas del TDA hash (que al ser un hash abierto, utiliza en gran medida el TDA lista). En ambos casos corre sin perdidas de memoria.

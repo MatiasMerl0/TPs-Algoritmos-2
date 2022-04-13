@@ -1,0 +1,22 @@
+Bienvenido al simulador de Westeros.
+
+Los comandos a realizar son los siguientes:
+
+A - agregar casas a westeros. Las casas deben estar en un archivo de texto en formato:
+
+	C;nombre_de_la_casa1;factor_de_envejecimiento;factor_de_nacimiento
+	I;nombre_persona_1;edad
+	I;nombre_persona_2;edad
+		. . . . .
+	I;nombre_persona_N;edad
+	C;nombre_de_la_casa2;factor_de_envejecimiento;factor_de_nacimiento
+		. . . . .
+	C;nombre_de_la_casaN;factor_de_envejecimiento;factor_de_nacimiento
+
+L - Lista las casas no extintas por orden de integrantes vivos, tambien muestra los integrantes de esa casa.
+
+E - Muestra las casas extintas por orden en que se extinguieron.
+
+S - Pide al usuario la cantidad de años a simular y ejecuta la simulacion
+
+Q - Termina con la ejecucion de la simulacion.%
